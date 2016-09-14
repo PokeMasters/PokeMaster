@@ -32,7 +32,14 @@ open class DatabaseTest {
     @Throws(Exception::class)
     fun languageTable_shouldExist() {
         assert(count(Language::class) == 11)
-        assert(find(Language::class, 9)?.name == "en")
+
+        val language = find(Language::class, 9)
+        assert(language?.id == 9)
+        assert(language?.name == "en")
+        assert(language?.iso639 == "en")
+        assert(language?.iso3166 == "us")
+        assert(language?.isOfficial == true)
+        assert(language?.order == 6)
     }
 
     @Test
@@ -40,9 +47,11 @@ open class DatabaseTest {
     fun languageNameTable_shouldExist() {
         assert(count(LanguageName::class) == 40)
 
-        val lang = find(LanguageName::class, 36)
-        assert(lang?.name == "English")
-        assert(lang?.localLanguage?.name == "en")
+        val languageName = find(LanguageName::class, 36)
+        assert(languageName?.id == 36)
+        assert(languageName?.name == "English")
+        assert(languageName?.language?.id == 9)
+        assert(languageName?.localLanguage?.id == 9)
     }
 
     //endregion
@@ -55,8 +64,9 @@ open class DatabaseTest {
         assert(count(Version::class) == 26)
 
         val version = find(Version::class, 26)
+        assert(version?.id == 26)
         assert(version?.name == "alpha-sapphire")
-        assert(version?.versionGroup?.name == "omega-ruby-alpha-sapphire")
+        assert(version?.versionGroup?.id == 16)
     }
 
     @Test
@@ -65,9 +75,10 @@ open class DatabaseTest {
         assert(count(VersionName::class) == 130)
 
         val versionName = find(VersionName::class, 130)
+        assert(versionName?.id == 130)
         assert(versionName?.name == "Alpha Sapphire")
-        assert(versionName?.version?.name == "alpha-sapphire")
-        assert(versionName?.language?.name == "en")
+        assert(versionName?.version?.id == 26)
+        assert(versionName?.language?.id == 9)
     }
 
     @Test
@@ -76,8 +87,10 @@ open class DatabaseTest {
         assert(count(VersionGroup::class) == 16)
 
         val versionGroup = find(VersionGroup::class, 16)
+        assert(versionGroup?.id == 16)
         assert(versionGroup?.name == "omega-ruby-alpha-sapphire")
-        assert(versionGroup?.generation?.name == "generation-vi")
+        assert(versionGroup?.generation?.id == 6)
+        assert(versionGroup?.order == 16)
     }
 
     //endregion
@@ -90,8 +103,9 @@ open class DatabaseTest {
         assert(count(Generation::class) == 6)
 
         val generation = find(Generation::class, 6)
+        assert(generation?.id == 6)
         assert(generation?.name == "generation-vi")
-        assert(generation?.region?.name == "kalos")
+        assert(generation?.region?.id == 6)
     }
 
     @Test
@@ -100,8 +114,10 @@ open class DatabaseTest {
         assert(count(GenerationName::class) == 18)
 
         val generationName = find(GenerationName::class, 18)
+        assert(generationName?.id == 18)
         assert(generationName?.name == "Generation VI")
-        assert(generationName?.generation?.name == "generation-vi")
+        assert(generationName?.generation?.id == 6)
+        assert(generationName?.language?.id == 9)
     }
 
     //endregion
@@ -113,8 +129,9 @@ open class DatabaseTest {
     fun regionTable_shouldExist() {
         assert(count(Region::class) == 6)
 
-        val generation = find(Region::class, 6)
-        assert(generation?.name == "kalos")
+        val region = find(Region::class, 6)
+        assert(region?.id == 6)
+        assert(region?.name == "kalos")
     }
 
     @Test
@@ -123,8 +140,64 @@ open class DatabaseTest {
         assert(count(RegionName::class) == 30)
 
         val regionName = find(RegionName::class, 30)
+        assert(regionName?.id == 30)
         assert(regionName?.name == "Kalos")
-        assert(regionName?.region?.name == "kalos")
+        assert(regionName?.region?.id == 6)
+        assert(regionName?.language?.id == 9)
+    }
+
+    //endregion
+
+    //region ABILITY
+
+    @Test
+    @Throws(Exception::class)
+    fun abilityTable_shouldExist() {
+        assert(count(Ability::class) == 251)
+
+        val ability = find(Ability::class, 191)
+        assert(ability?.id == 191)
+        assert(ability?.name == "delta-stream")
+        assert(ability?.isMainSeries == true)
+        assert(ability?.generation?.id == 6)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun abilityEffectTextTable_shouldExist() {
+        assert(count(AbilityEffectText::class) == 191)
+
+        val abilityEffectText = find(AbilityEffectText::class, 188)
+        assert(abilityEffectText?.id == 188)
+        assert(abilityEffectText?.shortEffect == "Makes dark aura and fairy aura weaken moves of their respective types.")
+        assert(abilityEffectText?.effect == "While this Pokémon is on the field, dark aura and fairy aura weaken moves of their respective types to 2/3 their power, rather than strengthening them.")
+        assert(abilityEffectText?.ability?.id == 188)
+        assert(abilityEffectText?.language?.id == 9)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun abilityFlavorTextTable_shouldExist() {
+        assert(count(AbilityFlavorText::class) == 4121)
+
+        val abilityFlavorText = find(AbilityFlavorText::class, 551)
+        assert(abilityFlavorText?.id == 551)
+        assert(abilityFlavorText?.flavorText == "Prevents the foe’s escape.")
+        assert(abilityFlavorText?.ability?.id == 23)
+        assert(abilityFlavorText?.versionGroup?.id == 5)
+        assert(abilityFlavorText?.language?.id == 9)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun abilityNameTable_shouldExist() {
+        assert(count(AbilityName::class) == 1397)
+
+        val abilityName = find(AbilityName::class, 523)
+        assert(abilityName?.id == 523)
+        assert(abilityName?.name == "Caparazón")
+        assert(abilityName?.ability?.id == 75)
+        assert(abilityName?.language?.id == 7)
     }
 
     //endregion
