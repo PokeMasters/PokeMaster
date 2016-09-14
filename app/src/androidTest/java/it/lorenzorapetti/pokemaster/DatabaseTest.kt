@@ -242,4 +242,33 @@ open class DatabaseTest {
 
     //endregion
 
+    //region STAT
+
+    @Test
+    @Throws(Exception::class)
+    fun statTable_shouldExist() {
+        assert(count(Stat::class) == 8)
+
+        val stat = find(Stat::class, 4)
+        assert(stat?.id == 4)
+        assert(stat?.name == "special-attack")
+        assert(stat?.isBattleOnly == false)
+        assert(stat?.gameIndex == 5)
+        assert(stat?.moveDamageClass?.id == 3)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun statNameTable_shouldExist() {
+        assert(count(StatName::class) == 48)
+
+        val statName = find(StatName::class, 32)
+        assert(statName?.id == 32)
+        assert(statName?.name == "Vitesse")
+        assert(statName?.language?.id == 5)
+        assert(statName?.stat?.id == 6)
+    }
+
+    //endregion
+
 }
