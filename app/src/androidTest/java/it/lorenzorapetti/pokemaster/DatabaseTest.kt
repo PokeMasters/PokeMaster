@@ -106,4 +106,27 @@ open class DatabaseTest {
 
     //endregion
 
+    //region REGION
+
+    @Test
+    @Throws(Exception::class)
+    fun regionTable_shouldExist() {
+        assert(count(Region::class) == 6)
+
+        val generation = find(Region::class, 6)
+        assert(generation?.name == "kalos")
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun regionNameTable_shouldExist() {
+        assert(count(RegionName::class) == 30)
+
+        val regionName = find(RegionName::class, 30)
+        assert(regionName?.name == "Kalos")
+        assert(regionName?.region?.name == "kalos")
+    }
+
+    //endregion
+
 }
