@@ -271,4 +271,31 @@ open class DatabaseTest {
 
     //endregion
 
+    //region CHARACTERISTIC
+
+    @Test
+    @Throws(Exception::class)
+    fun characteristicTable_shouldExist() {
+        assert(count(Characteristic::class) == 30)
+
+        val characteristic = find(Characteristic::class, 10)
+        assert(characteristic?.id == 10)
+        assert(characteristic?.geneMod5 == 1)
+        assert(characteristic?.stat?.id == 4)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun characteristicDescriptionTable_shouldExist() {
+        assert(count(CharacteristicDescription::class) == 60)
+
+        val characteristicDescription = find(CharacteristicDescription::class, 22)
+        assert(characteristicDescription?.id == 22)
+        assert(characteristicDescription?.description == "Somewhat vain")
+        assert(characteristicDescription?.characteristic?.id == 11)
+        assert(characteristicDescription?.language?.id == 9)
+    }
+
+    //endregion
+
 }
