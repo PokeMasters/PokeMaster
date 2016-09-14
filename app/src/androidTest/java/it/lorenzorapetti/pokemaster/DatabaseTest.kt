@@ -82,4 +82,28 @@ open class DatabaseTest {
 
     //endregion
 
+    //region GENERATION
+
+    @Test
+    @Throws(Exception::class)
+    fun generationTable_shouldExist() {
+        assert(count(Generation::class) == 6)
+
+        val generation = find(Generation::class, 6)
+        assert(generation?.name == "generation-vi")
+        assert(generation?.region?.name == "kalos")
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun generationNameTable_shouldExist() {
+        assert(count(GenerationName::class) == 18)
+
+        val generationName = find(GenerationName::class, 18)
+        assert(generationName?.name == "Generation VI")
+        assert(generationName?.generation?.name == "generation-vi")
+    }
+
+    //endregion
+
 }
