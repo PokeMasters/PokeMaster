@@ -202,4 +202,44 @@ open class DatabaseTest {
 
     //endregion
 
+    //region TYPE
+
+    @Test
+    @Throws(Exception::class)
+    fun typeTable_shouldExist() {
+        assert(count(Type::class) == 20)
+
+        val type = find(Type::class, 9)
+        assert(type?.id == 9)
+        assert(type?.name == "steel")
+        assert(type?.generation?.id == 2)
+        assert(type?.moveDamageClass?.id == 2)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun typeNameTable_shouldExist() {
+        assert(count(TypeName::class) == 137)
+
+        val typeName = find(TypeName::class, 104)
+        assert(typeName?.id == 104)
+        assert(typeName?.name == "Ghiaccio")
+        assert(typeName?.language?.id == 8)
+        assert(typeName?.type?.id == 15)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun typeEfficacyTable_shouldExist() {
+        assert(count(TypeEfficacy::class) == 324)
+
+        val typeEfficacy = find(TypeEfficacy::class, 97)
+        assert(typeEfficacy?.id == 97)
+        assert(typeEfficacy?.damageFactor == 200)
+        assert(typeEfficacy?.damageType?.id == 6)
+        assert(typeEfficacy?.targetType?.id == 7)
+    }
+
+    //endregion
+
 }
