@@ -298,4 +298,30 @@ open class DatabaseTest {
 
     //endregion
 
+    //region EGG GROUP
+
+    @Test
+    @Throws(Exception::class)
+    fun eggGroupTable_shouldExist() {
+        assert(count(EggGroup::class) == 15)
+
+        val eggGroup = find(EggGroup::class, 9)
+        assert(eggGroup?.id == 9)
+        assert(eggGroup?.name == "water3")
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun eggGroupNameTable_shouldExist() {
+        assert(count(RegionName::class) == 90)
+
+        val eggGroupName = find(EggGroupName::class, 45)
+        assert(eggGroupName?.id == 45)
+        assert(eggGroupName?.name == "Humanotyp")
+        assert(eggGroupName?.eggGroup?.id == 8)
+        assert(eggGroupName?.language?.id == 6)
+    }
+
+    //endregion
+
 }
