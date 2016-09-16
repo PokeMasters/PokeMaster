@@ -482,4 +482,83 @@ open class DatabaseTest {
 
     //endregion
 
+    //region BERRY
+
+    @Test
+    @Throws(Exception::class)
+    fun berryFirmnessTable_shouldExist() {
+        assert(count(BerryFirmness::class) == 5)
+
+        val berryFirmness = find(BerryFirmness::class, 1)
+        assert(berryFirmness?.id == 1)
+        assert(berryFirmness?.name == "very-soft")
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun berryFirmnessNameTable_shouldExist() {
+        assert(count(BerryFirmnessName::class) == 10)
+
+        val berryFirmnessName = find(BerryFirmnessName::class, 5)
+        assert(berryFirmnessName?.id == 5)
+        assert(berryFirmnessName?.name == "Ferme")
+        assert(berryFirmnessName?.berryFirmness?.id == 3)
+        assert(berryFirmnessName?.language?.id == 5)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun berryTable_shouldExist() {
+        assert(count(Berry::class) == 64)
+
+        val berry = find(Berry::class, 40)
+        assert(berry?.id == 40)
+        assert(berry?.name == "yache")
+        assert(berry?.naturalGiftPower == 60)
+        assert(berry?.size == 135)
+        assert(berry?.maxHarvest == 5)
+        assert(berry?.growthTime == 18)
+        assert(berry?.soilDryness == 6)
+        assert(berry?.smoothness == 30)
+        assert(berry?.berryFirmness?.id == 4)
+        assert(berry?.item?.id == 165)
+        assert(berry?.naturalGiftType?.id == 15)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun berryFlavorTable_shouldExist() {
+        assert(count(BerryFlavor::class) == 5)
+
+        val berryFlavor = find(BerryFlavor::class, 3)
+        assert(berryFlavor?.id == 3)
+        assert(berryFlavor?.name == "sweet")
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun berryFlavorNameTable_shouldExist() {
+        assert(count(BerryFlavorName::class) == 10)
+
+        val berryFlavorName = find(BerryFlavorName::class, 4)
+        assert(berryFlavorName?.id == 4)
+        assert(berryFlavorName?.name == "Dry")
+        assert(berryFlavorName?.berryFlavor?.id == 2)
+        assert(berryFlavorName?.language?.id == 9)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun berryFlavorMapTable_shouldExist() {
+        assert(count(BerryFlavorMap::class) == 320)
+
+        val berryFlavorMap = find(BerryFlavorMap::class, 150)
+        assert(berryFlavorMap?.id == 150)
+        assert(berryFlavorMap?.potency == 20)
+        assert(berryFlavorMap?.berry?.id == 30)
+        assert(berryFlavorMap?.berryFlavor?.id == 5)
+    }
+
+    //endregion
+
 }
