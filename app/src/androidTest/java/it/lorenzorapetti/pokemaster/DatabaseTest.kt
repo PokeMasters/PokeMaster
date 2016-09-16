@@ -604,4 +604,68 @@ open class DatabaseTest {
 
     //endregion
 
+    //region LOCATION
+
+    @Test
+    @Throws(Exception::class)
+    fun locationTable_shouldExist() {
+        assert(count(Location::class) == 678)
+
+        val location = find(Location::class, 56)
+        assert(location?.id == 56)
+        assert(location?.name == "sinnoh-route-228")
+        assert(location?.region?.id == 4)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun locationNameTable_shouldExist() {
+        assert(count(LocationName::class) == 2101)
+
+        val locationName = find(LocationName::class, 1456)
+        assert(locationName?.id == 1456)
+        assert(locationName?.name == "リビエールライン")
+        assert(locationName?.location?.id == 610)
+        assert(locationName?.language?.id == 1)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun locationAreaTable_shouldExist() {
+        assert(count(LocationArea::class) == 716)
+
+        val locationArea = find(LocationArea::class, 350)
+        assert(locationArea?.id == 350)
+        assert(locationArea?.name == "petalburg-city-area")
+        assert(locationArea?.location?.id == 429)
+        assert(locationArea?.gameIndex == 0)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun locationAreaNameTable_shouldExist() {
+        assert(count(LocationAreaName::class) == 684)
+
+        val locationAreaName = find(LocationAreaName::class, 235)
+        assert(locationAreaName?.id == 350)
+        assert(locationAreaName?.name == "")
+        assert(locationAreaName?.locationArea?.id == 278)
+        assert(locationAreaName?.language?.id == 9)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun locationAreaEncounterRateTable_shouldExist() {
+        assert(count(LocationAreaEncounterRate::class) == 3865)
+
+        val locationAreaEncounterRate = find(LocationAreaEncounterRate::class, 3600)
+        assert(locationAreaEncounterRate?.id == 3600)
+        assert(locationAreaEncounterRate?.rate == 8)
+        assert(locationAreaEncounterRate?.locationArea?.id == 649)
+        assert(locationAreaEncounterRate?.version?.id == 17)
+        assert(locationAreaEncounterRate?.encounterMethod?.id == 1)
+    }
+
+    //endregion
+
 }
