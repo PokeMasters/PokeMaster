@@ -1,30 +1,15 @@
 package it.lorenzorapetti.pokemaster
 
 import android.support.test.runner.AndroidJUnit4
-import com.raizlabs.android.dbflow.config.DatabaseDefinition
-import com.raizlabs.android.dbflow.config.FlowManager
-import it.lorenzorapetti.pokemaster.db.PokedexDatabase
 import it.lorenzorapetti.pokemaster.models.*
 import it.lorenzorapetti.pokemaster.utls.count
 import it.lorenzorapetti.pokemaster.utls.find
-import org.junit.BeforeClass
 
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 open class DatabaseTest {
-
-    companion object {
-
-        var db: DatabaseDefinition? = null
-
-        @BeforeClass
-        fun before() {
-            db = FlowManager.getDatabase(PokedexDatabase::class.java)
-        }
-
-    }
 
     //region LANGUAGE
 
@@ -557,6 +542,64 @@ open class DatabaseTest {
         assert(berryFlavorMap?.potency == 20)
         assert(berryFlavorMap?.berry?.id == 30)
         assert(berryFlavorMap?.berryFlavor?.id == 5)
+    }
+
+    //endregion
+
+    //region GROWTH RATE
+
+    @Test
+    @Throws(Exception::class)
+    fun growthRateTable_shouldExist() {
+        assert(count(GrowthRate::class) == 6)
+
+        val growthRate = find(GrowthRate::class, 2)
+        assert(growthRate?.id == 2)
+        assert(growthRate?.name == "medium")
+        assert(growthRate?.formula == "x^3")
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun growthRateDescriptionTable_shouldExist() {
+        assert(count(GrowthRateDescription::class) == 18)
+
+        val growthRateDescription = find(GrowthRateDescription::class, 6)
+        assert(growthRateDescription?.id == 6)
+        assert(growthRateDescription?.description == "medium")
+        assert(growthRateDescription?.growthRate?.id == 2)
+        assert(growthRateDescription?.language?.id == 9)
+    }
+
+    //endregion
+
+    //region NATURE
+
+    @Test
+    @Throws(Exception::class)
+    fun natureTable_shouldExist() {
+        assert(count(Nature::class) == 25)
+
+        val nature = find(Nature::class, 10)
+        assert(nature?.id == 2)
+        assert(nature?.name == "hasty")
+        assert(nature?.gameIndex == 11)
+        assert(nature?.hatesFlavor?.id == 5)
+        assert(nature?.likesFlavor?.id == 3)
+        assert(nature?.decreasedStat?.id == 3)
+        assert(nature?.increasedStat?.id == 6)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun natureNameTable_shouldExist() {
+        assert(count(NatureName::class) == 175)
+
+        val natureName = find(NatureName::class, 50)
+        assert(natureName?.id == 50)
+        assert(natureName?.name == "おっとり")
+        assert(natureName?.nature?.id == 8)
+        assert(natureName?.language?.id == 1)
     }
 
     //endregion
