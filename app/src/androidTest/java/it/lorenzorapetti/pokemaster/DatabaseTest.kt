@@ -324,4 +324,162 @@ open class DatabaseTest {
 
     //endregion
 
+    //region ITEM
+
+    @Test
+    @Throws(Exception::class)
+    fun itemPocketTable_shouldExist() {
+        assert(count(ItemPocket::class) == 8)
+
+        val itemPocket = find(ItemPocket::class, 2)
+        assert(itemPocket?.id == 2)
+        assert(itemPocket?.name == "medicine")
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun itemPocketNameTable_shouldExist() {
+        assert(count(ItemPocketName::class) == 8)
+
+        val itemPocketName = find(ItemPocketName::class, 1)
+        assert(itemPocketName?.id == 1)
+        assert(itemPocketName?.name == "Items")
+        assert(itemPocketName?.itemPocket?.id == 1)
+        assert(itemPocketName?.language?.id == 9)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun itemCategoryTable_shouldExist() {
+        assert(count(ItemCategory::class) == 44)
+
+        val itemCategory = find(ItemCategory::class, 12)
+        assert(itemCategory?.id == 12)
+        assert(itemCategory?.name == "held-items")
+        assert(itemCategory?.itemPocket?.id == 1)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun itemCategoryNameTable_shouldExist() {
+        assert(count(ItemCategoryName::class) == 44)
+
+        val itemCategoryName = find(ItemCategoryName::class, 20)
+        assert(itemCategoryName?.id == 20)
+        assert(itemCategoryName?.name == "Event items")
+        assert(itemCategoryName?.itemCategory?.id == 20)
+        assert(itemCategoryName?.language?.id == 9)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun itemFlingEffectTable_shouldExist() {
+        assert(count(ItemFlingEffect::class) == 7)
+
+        val itemFlingEffect = find(ItemFlingEffect::class, 5)
+        assert(itemFlingEffect?.id == 5)
+        assert(itemFlingEffect?.name == "paralyze")
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun itemFlingEffectEffectTextTable_shouldExist() {
+        assert(count(ItemFlingEffectEffectText::class) == 7)
+
+        val itemFlingEffectEffectText = find(ItemFlingEffectEffectText::class, 1)
+        assert(itemFlingEffectEffectText?.id == 1)
+        assert(itemFlingEffectEffectText?.effect == "Badly poisons the target.")
+        assert(itemFlingEffectEffectText?.itemFlingEffect?.id == 1)
+        assert(itemFlingEffectEffectText?.language?.id == 9)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun itemTable_shouldExist() {
+        assert(count(Item::class) == 746)
+
+        val item = find(Item::class, 562)
+        assert(item?.id == 562)
+        assert(item?.name == "old-sea-map")
+        assert(item?.cost == 0)
+        assert(item?.flingPower == null)
+        assert(item?.itemCategory?.id == 20)
+        assert(item?.itemFlingEffect?.id == null)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun itemEffectTextTable_shouldExist() {
+        assert(count(ItemEffectText::class) == 678)
+
+        val itemEffectText = find(ItemEffectText::class, 669)
+        assert(itemEffectText?.id == 669)
+        assert(itemEffectText?.effect == "")
+        assert(itemEffectText?.shortEffect == "Holds medals recieved in the medal rally.")
+        assert(itemEffectText?.item?.id == 670)
+        assert(itemEffectText?.language?.id == 9)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun itemNameTable_shouldExist() {
+        assert(count(ItemName::class) == 5156)
+
+        val itemName = find(ItemName::class, 1375)
+        assert(itemName?.id == 1375)
+        assert(itemName?.name == "ぎんのこな")
+        assert(itemName?.item?.id == 199)
+        assert(itemName?.language?.id == 1)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun itemFlavorTextTable_shouldExist() {
+        assert(count(ItemFlavorText::class) == 9604)
+
+        val itemFlavorText = find(ItemFlavorText::class, 3577)
+        assert(itemFlavorText?.id == 3577)
+        assert(itemFlavorText?.flavorText == """Strumento da dare a un Pokémon.
+                Sciarpa raffinata che potenzia le mosse
+                di tipo Normale.""")
+        assert(itemFlavorText?.item?.id == 228)
+        assert(itemFlavorText?.language?.id == 8)
+        assert(itemFlavorText?.versionGroup?.id == 15)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun itemAttributeTable_shouldExist() {
+        assert(count(ItemAttribute::class) == 8)
+
+        val itemAttribute = find(ItemAttribute::class, 5)
+        assert(itemAttribute?.id == 5)
+        assert(itemAttribute?.name == "holdable")
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun itemAttributeNameTable_shouldExist() {
+        assert(count(ItemAttributeName::class) == 8)
+
+        val itemAttributeName = find(ItemAttributeName::class, 2)
+        assert(itemAttributeName?.id == 2)
+        assert(itemAttributeName?.name == "Consumable")
+        assert(itemAttributeName?.itemAttribute?.id == 2)
+        assert(itemAttributeName?.language?.id == 9)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun itemAttributeMapTable_shouldExist() {
+        assert(count(ItemAttributeMap::class) == 611)
+
+        val itemAttributeMap = find(ItemAttributeMap::class, 314)
+        assert(itemAttributeMap?.id == 314)
+        assert(itemAttributeMap?.item?.id == 69)
+        assert(itemAttributeMap?.itemAttribute?.id == 1)
+    }
+
+    //endregion
+
 }
