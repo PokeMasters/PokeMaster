@@ -668,4 +668,115 @@ open class DatabaseTest {
 
     //endregion
 
+    //region ENCOUNTER
+
+    @Test
+    @Throws(Exception::class)
+    fun encounterMethodTable_shouldExist() {
+        assert(count(EncounterMethod::class) == 17)
+
+        val encounterMethod = find(EncounterMethod::class, 7)
+        assert(encounterMethod?.id == 7)
+        assert(encounterMethod?.name == "headbutt")
+        assert(encounterMethod?.order == 17)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun encounterMethodNameTable_shouldExist() {
+        assert(count(EncounterMethodName::class) == 34)
+
+        val encounterMethodName = find(EncounterMethodName::class, 3)
+        assert(encounterMethodName?.id == 3)
+        assert(encounterMethodName?.name == "Mit einer normalen Angel angeln")
+        assert(encounterMethodName?.encounterMethod?.id == 2)
+        assert(encounterMethodName?.language?.id == 6)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun encounterSlotTable_shouldExist() {
+        assert(count(EncounterSlot::class) == 489)
+
+        val encounterSlot = find(EncounterSlot::class, 251)
+        assert(encounterSlot?.id == 251)
+        assert(encounterSlot?.slot == 1)
+        assert(encounterSlot?.rarity == 40)
+        assert(encounterSlot?.encounterMethod?.id == 4)
+        assert(encounterSlot?.versionGroup?.id == 11)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun encounterTable_shouldExist() {
+        assert(count(Encounter::class) == 46530)
+
+        val encounter = find(Encounter::class, 1)
+        assert(encounter?.id == 7)
+        assert(encounter?.minLevel == 20)
+        assert(encounter?.maxLevel == 30)
+        assert(encounter?.locationArea?.id == 1)
+        assert(encounter?.version?.id == 12)
+        assert(encounter?.encounterSlot?.id == 28)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun encounterConditionTable_shouldExist() {
+        assert(count(EncounterCondition::class) == 6)
+
+        val encounterCondition = find(EncounterCondition::class, 3)
+        assert(encounterCondition?.id == 3)
+        assert(encounterCondition?.name == "radar")
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun encounterConditionNameTable_shouldExist() {
+        assert(count(EncounterConditionName::class) == 18)
+
+        val encounterConditionName = find(EncounterConditionName::class, 9)
+        assert(encounterConditionName?.id == 9)
+        assert(encounterConditionName?.name == "PokeRadar")
+        assert(encounterConditionName?.encounterCondition?.id == 3)
+        assert(encounterConditionName?.language?.id == 9)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun encounterConditionValueTable_shouldExist() {
+        assert(count(EncounterConditionValue::class) == 20)
+
+        val encounterConditionValue = find(EncounterConditionValue::class, 10)
+        assert(encounterConditionValue?.id == 10)
+        assert(encounterConditionValue?.name == "slot2-sapphire")
+        assert(encounterConditionValue?.encounterCondition?.id == 4)
+        assert(encounterConditionValue?.isDefault == false)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun encounterConditionValueNameTable_shouldExist() {
+        assert(count(EncounterConditionValueName::class) == 40)
+
+        val encounterConditionValueName = find(EncounterConditionValueName::class, 20)
+        assert(encounterConditionValueName?.id == 20)
+        assert(encounterConditionValueName?.name == "Sapphire in slot 2")
+        assert(encounterConditionValueName?.encounterConditionValue?.id == 10)
+        assert(encounterConditionValueName?.language?.id == 9)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun encounterConditionValueMapTable_shouldExist() {
+        assert(count(EncounterConditionValueMap::class) == 12175)
+
+        val encounterConditionValueMap = find(EncounterConditionValueMap::class, 6578)
+        assert(encounterConditionValueMap?.id == 6578)
+        assert(encounterConditionValueMap?.encounter?.id == 17452)
+        assert(encounterConditionValueMap?.encounterConditionValue?.id == 16)
+    }
+
+    //endregion
+
 }
