@@ -779,4 +779,145 @@ open class DatabaseTest {
 
     //endregion
 
+    //region MOVE
+
+    @Test
+    @Throws(Exception::class)
+    fun moveTable_shouldExist() {
+        assert(count(Move::class) == 639)
+
+        val move = find(Move::class, 350)
+        assert(move?.id == 350)
+        assert(move?.name == "rock-blast")
+        assert(move?.power == 25)
+        assert(move?.pp == 10)
+        assert(move?.accuracy == 90)
+        assert(move?.priority == 0)
+        assert(move?.moveEffectChance == null)
+        assert(move?.generation?.id == 3)
+        assert(move?.moveDamageClass?.id == 2)
+        assert(move?.type?.id == 6)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun moveNameTable_shouldExist() {
+        assert(count(MoveName::class) == 4451)
+
+        val moveName = find(MoveName::class, 4451)
+        assert(moveName?.id == 4451)
+        assert(moveName?.name == "Shadow Sky")
+        assert(moveName?.move?.id == 10018)
+        assert(moveName?.language?.id == 9)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun moveFlavorTextTable_shouldExist() {
+        assert(count(MoveFlavorText::class) == 14546)
+
+        val moveFlavorText = find(MoveFlavorText::class, 1)
+        assert(moveFlavorText?.id == 1)
+        assert(moveFlavorText?.flavorText == """Pounds with fore­
+                legs or tail.""")
+        assert(moveFlavorText?.move?.id == 1)
+        assert(moveFlavorText?.language?.id == 9)
+        assert(moveFlavorText?.versionGroup?.id == 3)
+    }
+
+    //endregion
+
+    //region MOVE DAMAGE CLASS
+
+    @Test
+    @Throws(Exception::class)
+    fun moveDamageClassTable_shouldExist() {
+        assert(count(MoveDamageClass::class) == 3)
+
+        val moveDamageClass = find(MoveDamageClass::class, 1)
+        assert(moveDamageClass?.id == 1)
+        assert(moveDamageClass?.name == "status")
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun moveDamageClassNameTable_shouldExist() {
+        assert(count(MoveDamageClassName::class) == 12)
+
+        val moveDamageClassName = find(MoveDamageClassName::class, 5)
+        assert(moveDamageClassName?.id == 5)
+        assert(moveDamageClassName?.name == "ぶつり")
+        assert(moveDamageClassName?.moveDamageClass?.id == 2)
+        assert(moveDamageClassName?.language?.id == 1)
+    }
+
+    //endregion
+
+    //region MOVE EFFECT
+
+    @Test
+    @Throws(Exception::class)
+    fun moveEffectTable_shouldExist() {
+        assert(count(MoveEffect::class) == 356)
+
+        val moveEffect = find(MoveEffect::class, 237)
+        assert(moveEffect?.id == 237)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun moveEffectEffectTextTable_shouldExist() {
+        assert(count(MoveEffectEffectText::class) == 356)
+
+        val moveEffectEffectText = find(MoveEffectEffectText::class, 237)
+        assert(moveEffectEffectText?.id == 237)
+        assert(moveEffectEffectText?.effect == """Inflicts regular damage.  User dives underwater for one turn, becoming immune to attack, and hits on the second turn.
+
+                During the immune turn, surf, and whirlpool still hit the user normally, and their power is doubled if appropriate.
+
+                The user may be hit during its immune turn if under the effect of lock on, mind reader, or no guard.
+
+                This move cannot be selected by sleep talk.""")
+        assert(moveEffectEffectText?.shortEffect == "User dives underwater, dodging all attacks, and hits next turn.")
+        assert(moveEffectEffectText?.language?.id == 9)
+        assert(moveEffectEffectText?.moveEffect?.id == 256)
+    }
+
+    //endregion
+
+    //region MOVE META
+
+    @Test
+    @Throws(Exception::class)
+    fun moveMetaTable_shouldExist() {
+        assert(count(MoveMeta::class) == 617)
+
+        val moveMeta = find(MoveMeta::class, 100)
+        assert(moveMeta?.id == 100)
+        assert(moveMeta?.minHits == null)
+        assert(moveMeta?.maxHits == null)
+        assert(moveMeta?.minTurns == null)
+        assert(moveMeta?.maxTurns == null)
+        assert(moveMeta?.critRate == 0)
+        assert(moveMeta?.ailmentChance == 0)
+        assert(moveMeta?.flinchChance == 0)
+        assert(moveMeta?.statChance == 0)
+        assert(moveMeta?.drain == 0)
+        assert(moveMeta?.healing == 0)
+        assert(moveMeta?.moveMetaCategory?.id == 13)
+        assert(moveMeta?.move?.id == 100)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun moveMetaCategoryTable_shouldExist() {
+        assert(count(MoveMetaCategory::class) == 14)
+
+        val moveMetaCategory = find(MoveMetaCategory::class, 10)
+        assert(moveMetaCategory?.id == 10)
+        assert(moveMetaCategory?.name == "whole-field-effect")
+    }
+
+    //endregion
+
 }

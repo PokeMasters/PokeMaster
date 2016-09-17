@@ -39,4 +39,4 @@ fun <T: Model> find(modelClass: KClass<T>, id: Int): T? {
 /**
  * Return the count of the records in a table
  */
-fun <T: Model> count(modelClass: KClass<T>) = (select from modelClass).list.size
+fun <T: Model> count(modelClass: KClass<T>) = (select from modelClass).count().toInt()
