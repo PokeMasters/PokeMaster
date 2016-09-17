@@ -920,4 +920,22 @@ open class DatabaseTest {
 
     //endregion
 
+    //region MACHINE
+
+    @Test
+    @Throws(Exception::class)
+    fun machineTable_shouldExist() {
+        assert(count(Machine::class) == 1228)
+
+        val machine = find(Machine::class, 3)
+        assert(machine?.id == 3)
+        assert(machine?.machineNumber == 1)
+        assert(machine?.move?.id == 223)
+        assert(machine?.versionGroup?.id == 3)
+        assert(machine?.item?.id == 305)
+        assert(machine?.growthRate?.id == null)
+    }
+
+    //endregion
+
 }
