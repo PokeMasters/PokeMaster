@@ -938,4 +938,28 @@ open class DatabaseTest {
 
     //endregion
 
+    //region EVOLUTION
+
+    @Test
+    @Throws(Exception::class)
+    fun evolutionChainTable_shouldExist() {
+        assert(count(EvolutionChain::class) == 365)
+
+        val evolutionChain = find(EvolutionChain::class, 200)
+        assert(evolutionChain?.id == 200)
+        assert(evolutionChain?.babyTriggerItem?.id == null)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun evolutionTriggerTable_shouldExist() {
+        assert(count(EvolutionTrigger::class) == 4)
+
+        val evolutionTrigger = find(EvolutionTrigger::class, 1)
+        assert(evolutionTrigger?.id == 1)
+        assert(evolutionTrigger?.name == "level-up")
+    }
+
+    //endregion
+
 }
