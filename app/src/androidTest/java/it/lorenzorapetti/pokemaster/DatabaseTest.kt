@@ -962,4 +962,236 @@ open class DatabaseTest {
 
     //endregion
 
+    //region POKEMON
+
+    @Test
+    @Throws(Exception::class)
+    fun pokemonSpeciesTable_shouldExist() {
+        assert(count(PokemonSpecies::class) == 721)
+
+        val pokemonSpecies = find(PokemonSpecies::class, 7)
+        assert(pokemonSpecies?.id == 7)
+        assert(pokemonSpecies?.name == "squirtle")
+        assert(pokemonSpecies?.order == 7)
+        assert(pokemonSpecies?.genderRate == 1)
+        assert(pokemonSpecies?.captureRate == 45)
+        assert(pokemonSpecies?.baseHappiness == 70)
+        assert(pokemonSpecies?.isBaby == false)
+        assert(pokemonSpecies?.hatchCounter == 20)
+        assert(pokemonSpecies?.hasGenderDifferences == false)
+        assert(pokemonSpecies?.formsSwitchable == false)
+        assert(pokemonSpecies?.evolutionChain?.id == 3)
+        assert(pokemonSpecies?.evolvesFromSpecies?.id == null)
+        assert(pokemonSpecies?.generation?.id == 1)
+        assert(pokemonSpecies?.growthRate?.id == 4)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun pokemonSpeciesNameTable_shouldExist() {
+        assert(count(PokemonSpeciesName::class) == 6040)
+
+        val pokemonSpeciesName = find(PokemonSpeciesName::class, 3020)
+        assert(pokemonSpeciesName?.id == 3020)
+        assert(pokemonSpeciesName?.genus == "Serpacroc")
+        assert(pokemonSpeciesName?.name == "Séviper")
+        assert(pokemonSpeciesName?.pokemonSpecies?.id == 336)
+        assert(pokemonSpeciesName?.language?.id == 5)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun pokemonSpeciesDescriptionTable_shouldExist() {
+        assert(count(PokemonSpeciesDescription::class) == 34)
+
+        val pokemonSpeciesDescription = find(PokemonSpeciesDescription::class, 22)
+        assert(pokemonSpeciesDescription?.id == 22)
+        assert(pokemonSpeciesDescription?.description == "Forms only affect appearance.  In Black and White Versions 2, Keldeo becomes Resolute Form when it learns secret sword and reverts to Ordinary Form if it forgets that move.")
+        assert(pokemonSpeciesDescription?.pokemonSpecies?.id == 647)
+        assert(pokemonSpeciesDescription?.language?.id == 9)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun pokemonSpeciesFlavorTextTable_shouldExist() {
+        assert(count(PokemonSpeciesFlavorText::class) == 32567)
+
+        val pokemonSpeciesFlavorText = find(PokemonSpeciesFlavorText::class, 345)
+        assert(pokemonSpeciesFlavorText?.id == 345)
+        assert(pokemonSpeciesFlavorText?.flavorText == "It shelters itself in its shell")
+        assert(pokemonSpeciesFlavorText?.pokemonSpecies?.id == 7)
+        assert(pokemonSpeciesFlavorText?.language?.id == 9)
+        assert(pokemonSpeciesFlavorText?.version?.id == 21)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun pokemonTable_shouldExist() {
+        assert(count(Pokemon::class) == 811)
+
+        val pokemon = find(Pokemon::class, 600)
+        assert(pokemon?.id == 600)
+        assert(pokemon?.order == 673)
+        assert(pokemon?.height == 6)
+        assert(pokemon?.weight == 510)
+        assert(pokemon?.baseExperience == 154)
+        assert(pokemon?.isDefault == true)
+        assert(pokemon?.pokemonSpecies?.id == 600)
+        assert(pokemon?.name == "klang")
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun pokemonAbilityTable_shouldExist() {
+        assert(count(PokemonAbility::class) == 1867)
+
+        val pokemonAbility = find(PokemonAbility::class, 4)
+        assert(pokemonAbility?.id == 4)
+        assert(pokemonAbility?.isHidden == true)
+        assert(pokemonAbility?.slot == 3)
+        assert(pokemonAbility?.ability?.id == 34)
+        assert(pokemonAbility?.pokemon?.id == 2)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun pokemonColorTable_shouldExist() {
+        assert(count(PokemonColor::class) == 10)
+
+        val pokemonColor = find(PokemonColor::class, 5)
+        assert(pokemonColor?.id == 4)
+        assert(pokemonColor?.name == "gray")
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun pokemonEggGroupTable_shouldExist() {
+        assert(count(PokemonEggGroup::class) == 912)
+
+        val pokemonEggGroup = find(PokemonEggGroup::class, 500)
+        assert(pokemonEggGroup?.id == 500)
+        assert(pokemonEggGroup?.pokemonSpecies?.id == 387)
+        assert(pokemonEggGroup?.eggGroup?.id == 7)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun pokemonEvolutionTable_shouldExist() {
+        assert(count(PokemonEvolution::class) == 364)
+
+        val pokemonEvolution = find(PokemonEvolution::class, 154)
+        assert(pokemonEvolution?.id == 154)
+        assert(pokemonEvolution?.minLevel == 20)
+        assert(pokemonEvolution?.minHappiness == null)
+        assert(pokemonEvolution?.minBeauty == null)
+        assert(pokemonEvolution?.minAffection == null)
+        assert(pokemonEvolution?.relativePhysicalStats == null)
+        assert(pokemonEvolution?.needsOverworldRain == false)
+        assert(pokemonEvolution?.turnUpsideDown == false)
+        assert(pokemonEvolution?.evolutionTrigger?.id == 1)
+        assert(pokemonEvolution?.evolvedSpecies?.id == 291)
+        assert(pokemonEvolution?.genderId == null)
+        assert(pokemonEvolution?.knownMove?.id == null)
+        assert(pokemonEvolution?.knownMoveType?.id == null)
+        assert(pokemonEvolution?.partySpecies?.id == null)
+        assert(pokemonEvolution?.partyType?.id == null)
+        assert(pokemonEvolution?.tradeSpecies?.id == null)
+        assert(pokemonEvolution?.evolutionItem?.id == null)
+        assert(pokemonEvolution?.heldItem?.id == null)
+        assert(pokemonEvolution?.location?.id == null)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun pokemonFormTable_shouldExist() {
+        assert(count(PokemonForm::class) == 913)
+
+        val pokemonForm = find(PokemonForm::class, 312)
+        assert(pokemonForm?.id == 312)
+        assert(pokemonForm?.order == 402)
+        assert(pokemonForm?.formName == "")
+        assert(pokemonForm?.isDefault == true)
+        assert(pokemonForm?.isBattleOnly == false)
+        assert(pokemonForm?.isMega == false)
+        assert(pokemonForm?.formOrder == 1)
+        assert(pokemonForm?.name == "minun")
+        assert(pokemonForm?.versionGroup?.id == 5)
+        assert(pokemonForm?.pokemon?.id == 312)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun pokemonFormNameTable_shouldExist() {
+        assert(count(PokemonFormName::class) == 1361)
+
+        val pokemonFormName = find(PokemonFormName::class, 1000)
+        assert(pokemonFormName?.id == 1000)
+        assert(pokemonFormName?.pokemonName == "")
+        assert(pokemonFormName?.name == "레이디컷")
+        assert(pokemonFormName?.pokemonForm?.id == 10118)
+        assert(pokemonFormName?.language?.id == 3)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun moveLearnMethodTable_shouldExist() {
+        assert(count(MoveLearnMethod::class) == 10)
+
+        val moveLearnMethod = find(MoveLearnMethod::class, 10)
+        assert(moveLearnMethod?.id == 10)
+        assert(moveLearnMethod?.name == "form-change")
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun pokemonMoveTable_shouldExist() {
+        assert(count(PokemonMove::class) == 366540)
+
+        val pokemonMove = find(PokemonMove::class, 1)
+        assert(pokemonMove?.id == 1)
+        assert(pokemonMove?.order == null)
+        assert(pokemonMove?.level == 0)
+        assert(pokemonMove?.move?.id == 14)
+        assert(pokemonMove?.pokemon?.id == 1)
+        assert(pokemonMove?.versionGroup?.id == 1)
+        assert(pokemonMove?.moveLearnMethod?.id == 4)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun pokemonShapeTable_shouldExist() {
+        assert(count(PokemonShape::class) == 14)
+
+        val pokemonShape = find(PokemonShape::class, 9)
+        assert(pokemonShape?.id == 9)
+        assert(pokemonShape?.name == "wings")
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun pokemonStatTable_shouldExist() {
+        assert(count(PokemonStat::class) == 4866)
+
+        val pokemonStat = find(PokemonStat::class, 4000)
+        assert(pokemonStat?.id == 4000)
+        assert(pokemonStat?.baseStat == 73)
+        assert(pokemonStat?.effort == 1)
+        assert(pokemonStat?.pokemon?.id == 667)
+        assert(pokemonStat?.stat?.id == 4)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun pokemonTypeTable_shouldExist() {
+        assert(count(PokemonType::class) == 1225)
+
+        val pokemonType = find(PokemonType::class, 1200)
+        assert(pokemonType?.id == 1200)
+        assert(pokemonType?.slot == 1)
+        assert(pokemonType?.pokemon?.id == 10074)
+        assert(pokemonType?.type?.id == 15)
+    }
+
+    //endregion
+
 }
