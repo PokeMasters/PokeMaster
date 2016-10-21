@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Poke Master</string>
+
+    <!-- Menu -->
+    <string name="menu_pokemon">Pokémon</string>
+
+    <!-- Bottom tabs -->
+    <string name="tab_captured">Captured</string>
+    <string name="tab_general">General</string>
+    <string name="tab_favorites">Favorites</string>
+
 </resources>

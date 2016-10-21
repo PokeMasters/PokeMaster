@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Toolbar -->
+    <dimen name="action_bar_height">56dp</dimen>
+
+    <!-- Bottom bar -->
+    <dimen name="bottom_bar_height">60dp</dimen>
+
+    <!-- Text -->
+    <dimen name="textPrimary">16sp</dimen>
+    <dimen name="textSecondary">14sp</dimen>
+
+    <!-- Lists -->
+    <dimen name="list_item_two_lines_height">72dp</dimen>
+    <dimen name="list_item_two_lines_vertical_padding">20dp</dimen>
+    <dimen name="list_item_two_lines_avatar_max_width">40dp</dimen>
+    <dimen name="list_item_two_lines_avatar_padding_left">16dp</dimen>
+    <dimen name="list_item_two_lines_avatar_padding_right">16dp</dimen>
+    <dimen name="list_item_two_lines_icon_padding_left">16dp</dimen>
+    <dimen name="list_item_two_lines_icon_padding_right">16dp</dimen>
+
+</resources>

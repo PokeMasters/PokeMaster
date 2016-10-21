@@ -1,9 +1,13 @@
 package it.lorenzorapetti.pokemaster
 
 import android.support.test.runner.AndroidJUnit4
+import com.raizlabs.android.dbflow.config.FlowManager
+import it.lorenzorapetti.pokemaster.db.PokedexDatabase
 import it.lorenzorapetti.pokemaster.models.*
-import it.lorenzorapetti.pokemaster.utls.count
-import it.lorenzorapetti.pokemaster.utls.find
+import it.lorenzorapetti.pokemaster.models.view.PokemonModelView
+import it.lorenzorapetti.pokemaster.utils.count
+import it.lorenzorapetti.pokemaster.utils.find
+import org.junit.BeforeClass
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -1193,5 +1197,20 @@ open class DatabaseTest {
     }
 
     //endregion
+
+    @Test
+    @Throws(Exception::class)
+    fun pokemonDetailsView_shouldExists() {
+        assert(count(PokemonModelView::class) == 721)
+
+        val pokemonDetail = find(PokemonModelView::class, 460)
+        assert(pokemonDetail?.id == 460)
+        assert(pokemonDetail?.name == "abomasnow")
+        assert(pokemonDetail?.formName == "abomasnow")
+        assert(pokemonDetail?.nameIt == "Abomasnow")
+        assert(pokemonDetail?.nameEn == "Abomasnow")
+        assert(pokemonDetail?.primaryTypeName == "grass")
+        assert(pokemonDetail?.secondaryTypeName == "ice")
+    }
 
 }
