@@ -2,15 +2,15 @@
 <tabs>
 
     <tab id="@+id/tab_captured"
-        icon="@drawable/ic_list"
+        icon="@drawable/ic_captured"
         title="@string/tab_captured" />
 
     <tab id="@+id/tab_general"
-        icon="@drawable/ic_home"
+        icon="@drawable/ic_general"
         title="@string/tab_general" />
 
     <tab id="@+id/tab_favorites"
-        icon="@drawable/ic_favorite"
+        icon="@drawable/ic_bookmarks"
         title="@string/tab_favorites" />
 
 </tabs>

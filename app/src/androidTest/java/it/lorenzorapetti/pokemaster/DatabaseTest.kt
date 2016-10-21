@@ -1204,11 +1204,8 @@ open class DatabaseTest {
         assert(count(PokemonModelView::class) == 721)
 
         val pokemonDetail = find(PokemonModelView::class, 460)
-        assert(pokemonDetail?.id == 460)
         assert(pokemonDetail?.name == "abomasnow")
         assert(pokemonDetail?.formName == "abomasnow")
-        assert(pokemonDetail?.nameIt == "Abomasnow")
-        assert(pokemonDetail?.nameEn == "Abomasnow")
         assert(pokemonDetail?.primaryTypeName == "grass")
         assert(pokemonDetail?.secondaryTypeName == "ice")
     }

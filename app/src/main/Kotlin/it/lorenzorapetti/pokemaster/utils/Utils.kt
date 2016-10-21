@@ -1,5 +1,8 @@
 package it.lorenzorapetti.pokemaster.utils
 
+import android.content.Context
+import android.content.res.Resources
+import android.graphics.drawable.Drawable
 import android.support.v7.widget.RecyclerView
 import com.raizlabs.android.dbflow.kotlinextensions.from
 import com.raizlabs.android.dbflow.kotlinextensions.list
@@ -64,3 +67,34 @@ fun RecyclerView.ViewHolder.viewById(id: Int) = itemView.findViewById(id)
 fun String.getSugimoriUrl() = "${sugimoriUrl}sugimori_$this.png"
 
 fun String.getSugimoriThumbUrl() = "${sugimoriThumbUrl}sugimori_$this.png"
+
+fun String.normalizeIdentifier() = this.replace(Regex("[^a-zA-Z0-9]+"), "_")
+
+fun Context.findString(name: String): String {
+    val res = resources.getIdentifier(name, "string", packageName)
+    return if (res != 0) resources.getString(res) else ""
+}
+
+fun Context.findPokemonString(name: String): String {
+    val normalizedName = name.normalizeIdentifier()
+    var result = findString("pokemon_form_${normalizedName}_pokemon_name")
+    if (result == "") {
+        result = findString("pokemon_species_${normalizedName}_name")
+    }
+    return result
+}
+
+fun Context.findDrawableResource(name: String) =
+        resources.getIdentifier(name, "drawable", packageName)
+
+fun Context.findDrawable(name: String): Drawable? {
+    val res = findDrawableResource(name)
+    try {
+        return resources.getDrawable(res, theme)
+    } catch (e: Resources.NotFoundException) {
+        e.printStackTrace()
+        return null
+    }
+}
+
+fun Context.findTypeDrawableResource(name: String) = findDrawableResource("ic_type_$name")

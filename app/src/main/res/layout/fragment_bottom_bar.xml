@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -7,14 +7,14 @@
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/bottomBar" />
+        android:layout_height="match_parent" />
 
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_bar_height"
-        android:layout_alignParentBottom="true"
-        app:bb_tabXmlResource="@xml/bottombar_pokemon" />
+        android:layout_gravity="bottom"
+        app:bb_tabXmlResource="@xml/bottombar_pokemon"
+        app:bb_behavior="shy" />
 
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

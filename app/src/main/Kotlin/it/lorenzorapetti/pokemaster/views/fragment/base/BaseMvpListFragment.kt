@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import com.hannesdorfmann.mosby.mvp.lce.MvpLceFragment
 import it.lorenzorapetti.pokemaster.R
 import it.lorenzorapetti.pokemaster.presenter.base.BaseDataPresenter
-import it.lorenzorapetti.pokemaster.utils.recyclerview.MvpRecyclerAdapter
+import it.lorenzorapetti.pokemaster.adapter.MvpRecyclerAdapter
 import it.lorenzorapetti.pokemaster.views.base.DataView
 import java.util.*
 import kotlin.properties.Delegates
@@ -34,7 +34,8 @@ abstract class BaseMvpListFragment<M, P: BaseDataPresenter<ArrayList<M>>> :
         contentView.layoutManager = LinearLayoutManager(activity)
         contentView.adapter = mAdapter
         onBeforeLoadData(view, savedInstanceState)
-        loadData(false)
+        Log.d("App", "beforeLoad")
+        this.loadData(false)
     }
 
     //endregion
@@ -49,6 +50,7 @@ abstract class BaseMvpListFragment<M, P: BaseDataPresenter<ArrayList<M>>> :
     }
 
     override fun loadData(pullToRefresh: Boolean) {
+        Log.d("App", "loadData")
         presenter.load()
     }
 
@@ -57,6 +59,10 @@ abstract class BaseMvpListFragment<M, P: BaseDataPresenter<ArrayList<M>>> :
     //region Override DataView methods
 
     override fun showMessage(message: String) {
+        Log.d("App", "showMessage: $message")
+        contentView.visibility = View.GONE
+        loadingView.visibility = View.GONE
+        errorView.visibility = View.VISIBLE
         errorView.text = message
     }
 
@@ -64,7 +70,10 @@ abstract class BaseMvpListFragment<M, P: BaseDataPresenter<ArrayList<M>>> :
 
     //region Override MvpLceFragment methods
 
-    override fun getErrorMessage(e: Throwable?, pullToRefresh: Boolean) = e?.message
+    override fun getErrorMessage(e: Throwable?, pullToRefresh: Boolean): String? {
+        Log.d("App", "getErrorMessage: ${e?.message}")
+        return e?.message
+    }
 
     //endregion
 

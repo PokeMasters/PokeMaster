@@ -19,5 +19,6 @@
     <dimen name="list_item_two_lines_avatar_padding_right">16dp</dimen>
     <dimen name="list_item_two_lines_icon_padding_left">16dp</dimen>
     <dimen name="list_item_two_lines_icon_padding_right">16dp</dimen>
+    <dimen name="list_item_two_lines_icon_size">24dp</dimen>
 
 </resources>

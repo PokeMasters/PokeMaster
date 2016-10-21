@@ -53,15 +53,15 @@
 
         <ImageView
             android:id="@+id/list_secondary_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/list_item_two_lines_icon_size"
+            android:layout_height="@dimen/list_item_two_lines_icon_size"
             android:layout_marginRight="@dimen/list_item_two_lines_icon_padding_right"
             android:layout_marginEnd="@dimen/list_item_two_lines_icon_padding_right" />
 
         <ImageView
             android:id="@+id/list_primary_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="@dimen/list_item_two_lines_icon_size"
+            android:layout_height="@dimen/list_item_two_lines_icon_size" />
 
     </LinearLayout>
 
