@@ -15,12 +15,12 @@ import it.lorenzorapetti.pokemaster.views.base.DataView
 import java.util.*
 import kotlin.properties.Delegates
 
-abstract class BaseMvpListFragment<M, P: BaseDataPresenter<ArrayList<M>>> :
+abstract class BaseMvpListFragment<M, P: BaseDataPresenter<ArrayList<M>>, A: MvpRecyclerAdapter<M>> :
         MvpLceFragment<RecyclerView, ArrayList<M>, DataView<ArrayList<M>>, P>(), DataView<ArrayList<M>> {
 
     protected open val mLayoutRes: Int = R.layout.fragment_mvplce_base
 
-    protected abstract val mAdapter: MvpRecyclerAdapter<M>
+    protected var mAdapter: A by Delegates.notNull<A>()
 
     //region Fragment lifecycle
 
@@ -31,6 +31,7 @@ abstract class BaseMvpListFragment<M, P: BaseDataPresenter<ArrayList<M>>> :
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mAdapter = createAdapter()
         contentView.layoutManager = LinearLayoutManager(activity)
         contentView.adapter = mAdapter
         onBeforeLoadData(view, savedInstanceState)
@@ -80,6 +81,8 @@ abstract class BaseMvpListFragment<M, P: BaseDataPresenter<ArrayList<M>>> :
     //region Public methods
 
     abstract fun onBeforeLoadData(view: View?, savedInstanceState: Bundle?)
+
+    abstract fun createAdapter(): A
 
     //endregion
 }

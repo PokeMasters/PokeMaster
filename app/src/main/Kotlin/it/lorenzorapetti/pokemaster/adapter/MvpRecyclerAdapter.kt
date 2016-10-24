@@ -2,9 +2,12 @@ package it.lorenzorapetti.pokemaster.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.view.ViewGroup
+import com.daimajia.swipe.adapters.RecyclerSwipeAdapter
+import it.lorenzorapetti.pokemaster.R
 import java.util.*
 
-abstract class MvpRecyclerAdapter<M> : RecyclerView.Adapter<MvpRecyclerAdapter.MvpViewHolder<M>> {
+abstract class MvpRecyclerAdapter<M> : RecyclerSwipeAdapter<MvpRecyclerAdapter.MvpViewHolder<M>> {
 
     var items: ArrayList<M> = ArrayList()
 
@@ -17,6 +20,12 @@ abstract class MvpRecyclerAdapter<M> : RecyclerView.Adapter<MvpRecyclerAdapter.M
     }
 
     override fun getItemCount() = items.size
+
+    //region Override RecyclerSwipeAdapter
+
+    override fun getSwipeLayoutResourceId(position: Int) = R.id.swipe
+
+    //endregion
 
     //region Public methods
 
@@ -48,7 +57,7 @@ abstract class MvpRecyclerAdapter<M> : RecyclerView.Adapter<MvpRecyclerAdapter.M
 
     //endregion
 
-    abstract class MvpViewHolder<M>(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    abstract class MvpViewHolder<in M>(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         abstract fun bind(item: M)
 

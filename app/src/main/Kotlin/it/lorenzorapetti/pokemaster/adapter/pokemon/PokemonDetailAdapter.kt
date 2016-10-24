@@ -1,22 +1,19 @@
 package it.lorenzorapetti.pokemaster.adapter.pokemon
 
-import android.graphics.drawable.Drawable
-import android.util.Log
+import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
-import com.daimajia.swipe.SwipeLayout
 import com.squareup.picasso.Picasso
 import it.lorenzorapetti.pokemaster.R
 import it.lorenzorapetti.pokemaster.models.view.PokemonModelView
 import it.lorenzorapetti.pokemaster.adapter.MvpRecyclerAdapter
-import it.lorenzorapetti.pokemaster.adapter.decoration.ViewHolderSwipeAdapter
 import it.lorenzorapetti.pokemaster.utils.*
 
-class PokemonDetailAdapter : MvpRecyclerAdapter<PokemonModelView>() {
+class PokemonDetailAdapter(val context: Context) : MvpRecyclerAdapter<PokemonModelView>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MvpViewHolder<PokemonModelView> {
         val view = LayoutInflater.from(parent!!.context)
@@ -24,7 +21,7 @@ class PokemonDetailAdapter : MvpRecyclerAdapter<PokemonModelView>() {
         return PokemonDetailViewHolder(view)
     }
 
-    inner class PokemonDetailViewHolder : MvpViewHolder<PokemonModelView>, ViewHolderSwipeAdapter {
+    inner class PokemonDetailViewHolder : MvpViewHolder<PokemonModelView> {
 
         val avatar: ImageView
         val name: TextView
@@ -68,18 +65,6 @@ class PokemonDetailAdapter : MvpRecyclerAdapter<PokemonModelView>() {
                 secondaryType.visibility = View.GONE
             }
         }
-
-        //region Override ViewHolderSwipeAdapter
-
-        override fun getLeftDrawable() = itemView.context.findDrawable("ic_menu_pokemon")!!
-
-        override fun getRightDrawable() = itemView.context.findDrawable("ic_bookmarks")!!
-
-        override fun onSwiped(swipedPosition: Int) {
-            this@PokemonDetailAdapter.notifyItemChanged(swipedPosition)
-        }
-
-        //endregion
 
     }
 }

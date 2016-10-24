@@ -22,6 +22,7 @@ abstract class BaseBottomBarFragment(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        retainInstance = true
 
         //Check that the fragment list size is between 3 and 5 to be sure to follow
         //the Google Design Guidelines
@@ -39,10 +40,10 @@ abstract class BaseBottomBarFragment(
         super.onViewCreated(view, savedInstanceState)
 
         if (savedInstanceState == null) {
+            bottomBar.setDefaultTabPosition(defaultTabPosition)
             initializeFragments()
         }
 
-        bottomBar.setDefaultTabPosition(defaultTabPosition)
         bottomBar.setOnTabSelectListener { selectItem(it) }
     }
 
@@ -55,7 +56,8 @@ abstract class BaseBottomBarFragment(
         val transaction = childFragmentManager.beginTransaction()
         mFragments.forEach {
             transaction.add(R.id.content_frame, it.value, it.key.toString())
-            transaction.hide(it.value)
+            if (it.key != bottomBar.currentTabId)
+                transaction.hide(it.value)
         }
         transaction.commit()
     }
@@ -64,10 +66,13 @@ abstract class BaseBottomBarFragment(
         if (mFragments.containsKey(itemId)) {
             val transaction = childFragmentManager.beginTransaction()
             mFragments.forEach {
+                var f = childFragmentManager.findFragmentByTag(it.key.toString())
+                if (f == null) f = it.value
+
                 if (it.key != itemId) {
-                    transaction.hide(it.value)
+                    transaction.hide(f)
                 } else {
-                    transaction.show(it.value)
+                    transaction.show(f)
                 }
             }
             transaction.commit()
