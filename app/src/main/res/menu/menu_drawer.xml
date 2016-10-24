@@ -5,7 +5,32 @@
         android:checkableBehavior="single">
 
         <item android:id="@+id/menu_main_pokemon"
-            android:title="@string/menu_pokemon" />
+            android:title="@string/menu_pokemon"
+            android:icon="@drawable/ic_menu_pokemon" />
+
+        <item android:id="@+id/menu_main_moves"
+            android:title="@string/menu_moves"
+            android:icon="@drawable/ic_menu_moves" />
+
+        <item android:id="@+id/menu_main_types"
+            android:title="@string/menu_types"
+            android:icon="@drawable/ic_menu_types" />
+
+        <item android:id="@+id/menu_main_abilities"
+            android:title="@string/menu_abilities"
+            android:icon="@drawable/ic_menu_abilities" />
+
+        <item android:id="@+id/menu_main_items"
+            android:title="@string/menu_items"
+            android:icon="@drawable/ic_menu_items" />
+
+        <item android:id="@+id/menu_main_natures"
+            android:title="@string/menu_natures"
+            android:icon="@drawable/ic_menu_natures" />
+
+        <item android:id="@+id/menu_main_locations"
+            android:title="@string/menu_locations"
+            android:icon="@drawable/ic_menu_locations" />
 
     </group>
 

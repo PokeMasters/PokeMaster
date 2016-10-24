@@ -36,8 +36,14 @@ abstract class MvpRecyclerAdapter<M> : RecyclerView.Adapter<MvpRecyclerAdapter.M
     }
 
     fun removeItem(item: M) {
+        val index = items.indexOf(item)
         items.remove(item)
-        notifyDataSetChanged()
+        notifyItemRemoved(index)
+    }
+
+    fun removeItem(position: Int) {
+        items.removeAt(position)
+        notifyItemRemoved(position)
     }
 
     //endregion

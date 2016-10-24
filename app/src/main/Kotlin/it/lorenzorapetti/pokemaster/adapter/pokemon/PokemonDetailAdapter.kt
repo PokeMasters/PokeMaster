@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
+import com.daimajia.swipe.SwipeLayout
 import com.squareup.picasso.Picasso
 import it.lorenzorapetti.pokemaster.R
 import it.lorenzorapetti.pokemaster.models.view.PokemonModelView
 import it.lorenzorapetti.pokemaster.adapter.MvpRecyclerAdapter
+import it.lorenzorapetti.pokemaster.adapter.decoration.ViewHolderSwipeAdapter
 import it.lorenzorapetti.pokemaster.utils.*
 
 class PokemonDetailAdapter : MvpRecyclerAdapter<PokemonModelView>() {
@@ -21,7 +24,7 @@ class PokemonDetailAdapter : MvpRecyclerAdapter<PokemonModelView>() {
         return PokemonDetailViewHolder(view)
     }
 
-    class PokemonDetailViewHolder : MvpViewHolder<PokemonModelView> {
+    inner class PokemonDetailViewHolder : MvpViewHolder<PokemonModelView>, ViewHolderSwipeAdapter {
 
         val avatar: ImageView
         val name: TextView
@@ -65,6 +68,18 @@ class PokemonDetailAdapter : MvpRecyclerAdapter<PokemonModelView>() {
                 secondaryType.visibility = View.GONE
             }
         }
+
+        //region Override ViewHolderSwipeAdapter
+
+        override fun getLeftDrawable() = itemView.context.findDrawable("ic_menu_pokemon")!!
+
+        override fun getRightDrawable() = itemView.context.findDrawable("ic_bookmarks")!!
+
+        override fun onSwiped(swipedPosition: Int) {
+            this@PokemonDetailAdapter.notifyItemChanged(swipedPosition)
+        }
+
+        //endregion
 
     }
 }

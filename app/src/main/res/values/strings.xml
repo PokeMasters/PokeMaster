@@ -3,6 +3,13 @@
 
     <!-- Menu -->
     <string name="menu_pokemon">Pokémon</string>
+    <string name="menu_moves">Moves</string>
+    <string name="menu_types">Types</string>
+    <string name="menu_abilities">Abilities</string>
+    <string name="menu_items">Items</string>
+    <string name="menu_natures">Natures</string>
+    <string name="menu_locations">Locations</string>
+    <string name="menu_settings">Settings</string>
 
     <!-- Bottom tabs -->
     <string name="tab_captured">Captured</string>

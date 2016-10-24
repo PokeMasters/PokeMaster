@@ -5,6 +5,7 @@
     android:layout_height="@dimen/list_item_two_lines_height"
     android:orientation="horizontal"
     android:gravity="center_vertical"
+    android:background="@android:color/white"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground">
