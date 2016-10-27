@@ -8,7 +8,7 @@
     <!-- Bottom View -->
     <LinearLayout
         android:id="@+id/bottom_view_wrapper"
-        android:layout_width="160dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="?attr/colorPrimary"
         android:weightSum="1"
@@ -16,9 +16,28 @@
         android:gravity="center_vertical">
 
         <ImageView
+            android:id="@+id/list_action_captured"
             android:layout_width="@dimen/list_item_two_lines_icon_size"
             android:layout_height="@dimen/list_item_two_lines_icon_size"
-            android:src="@drawable/ic_menu_pokemon" />
+            android:layout_marginLeft="@dimen/list_item_two_lines_icon_padding_left"
+            android:layout_marginStart="@dimen/list_item_two_lines_icon_padding_left"
+            android:layout_marginRight="@dimen/list_item_two_lines_icon_padding_right"
+            android:layout_marginEnd="@dimen/list_item_two_lines_icon_padding_right"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_captured_white" />
+
+        <ImageView
+            android:id="@+id/list_action_favorites"
+            android:layout_width="@dimen/list_item_two_lines_icon_size"
+            android:layout_height="@dimen/list_item_two_lines_icon_size"
+            android:layout_marginLeft="@dimen/list_item_two_lines_icon_padding_left"
+            android:layout_marginStart="@dimen/list_item_two_lines_icon_padding_left"
+            android:layout_marginRight="@dimen/list_item_two_lines_icon_padding_right"
+            android:layout_marginEnd="@dimen/list_item_two_lines_icon_padding_right"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_bookmarks_white" />
 
     </LinearLayout>
 

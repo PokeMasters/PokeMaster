@@ -16,4 +16,19 @@
     <string name="tab_general">General</string>
     <string name="tab_favorites">Favorites</string>
 
+    <!-- Actions -->
+    <string name="action_add_to_favorites">Add to favorites</string>
+    <string name="action_remove_from_favorites">Remove from favorites</string>
+    <string name="action_add_to_captured">Add to captured</string>
+    <string name="action_remove_from_captured">Remove from captured</string>
+
+    <!-- Messages -->
+    <string name="message_pokemon_added_to_favorites">%1$s was added to favorites</string>
+    <string name="message_pokemon_removed_from_favorites">%1$s was removed from favorites</string>
+    <string name="message_pokemon_added_to_captured">%1$s was added to captured</string>
+    <string name="message_pokemon_removed_from_captured">%1$s was removed from captured</string>
+
+    <!-- Errors -->
+    <string name="error_no_pokemon">There are no pokémon!</string>
+
 </resources>

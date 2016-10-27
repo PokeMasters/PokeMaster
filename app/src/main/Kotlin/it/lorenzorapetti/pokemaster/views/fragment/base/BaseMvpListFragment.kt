@@ -24,19 +24,25 @@ abstract class BaseMvpListFragment<M, P: BaseDataPresenter<ArrayList<M>>, A: Mvp
 
     //region Fragment lifecycle
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("App", "onCreate")
+    }
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Log.d("App", "onCreateView")
         return inflater!!.inflate(mLayoutRes, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        Log.d("App", "onViewCreated")
         mAdapter = createAdapter()
         contentView.layoutManager = LinearLayoutManager(activity)
         contentView.adapter = mAdapter
         onBeforeLoadData(view, savedInstanceState)
-        Log.d("App", "beforeLoad")
         this.loadData(false)
+        Log.d("App", "beforeLoad")
     }
 
     //endregion

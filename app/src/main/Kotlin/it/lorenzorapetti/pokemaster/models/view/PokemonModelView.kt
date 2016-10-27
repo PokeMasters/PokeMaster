@@ -7,7 +7,11 @@ import com.raizlabs.android.dbflow.sql.Query
 import com.raizlabs.android.dbflow.sql.queriable.StringQuery
 import com.raizlabs.android.dbflow.structure.BaseModelView
 import it.lorenzorapetti.pokemaster.db.PokedexDatabase
+import it.lorenzorapetti.pokemaster.models.PokemonForm
 import it.lorenzorapetti.pokemaster.models.PokemonSpecies
+import it.lorenzorapetti.pokemaster.utils.find
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 @ModelView(database = PokedexDatabase::class)
 class PokemonModelView : BaseModelView<PokemonSpecies>() {
@@ -24,6 +28,8 @@ class PokemonModelView : BaseModelView<PokemonSpecies>() {
             pokemon_species.generation_id,
             pokemon_form.is_default as is_default_form,
             pokemon.is_default as is_default_pokemon,
+            pokemon_form.is_favorite,
+            pokemon_form.is_captured,
             (
                 SELECT p2t.name
                 FROM pokemon_v2_type p2t
@@ -84,12 +90,65 @@ class PokemonModelView : BaseModelView<PokemonSpecies>() {
     @Column(name = "secondary_type_name")
     var secondaryTypeName: String? = null
 
+    @Column(name = "is_favorite",
+            getterName = "isFavorite")
+    var isFavorite: Boolean = false
+
+    @Column(name = "is_captured",
+            getterName = "isCaptured")
+    var isCaptured: Boolean = false
+
     fun setIsDefaultPokemon(isDefault: Boolean) {
         isDefaultPokemon = isDefault
     }
 
     fun setIsDefaultForm(isDefault: Boolean) {
         isDefaultForm = isDefault
+    }
+
+    fun setIsFavorite(isFavorite: Boolean) {
+        this.isFavorite = isFavorite
+    }
+
+    fun setIsCaptured(isCaptured: Boolean) {
+        this.isCaptured = isCaptured
+    }
+
+    fun toggleFavorite(callback: (isFavorite: Boolean) -> Unit) {
+        val pokemonForm = find(PokemonForm::class, formId)
+
+        pokemonForm?.let {
+            doAsync {
+                pokemonForm.isFavorite = !isFavorite
+                pokemonForm.update()
+                this@PokemonModelView.isFavorite = pokemonForm.isFavorite
+                uiThread {
+                    callback(pokemonForm.isFavorite)
+                }
+            }
+        }
+    }
+
+    fun toggleCaptured(callback: (isCaptured: Boolean) -> Unit) {
+        val pokemonForm = find(PokemonForm::class, formId)
+
+        pokemonForm?.let {
+            doAsync {
+                pokemonForm.isCaptured = !isCaptured
+                pokemonForm.update()
+                this@PokemonModelView.isCaptured = pokemonForm.isCaptured
+                uiThread {
+                    callback(pokemonForm.isCaptured)
+                }
+            }
+        }
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other !is PokemonModelView) return false
+        return other.pokemonSpeciesId == pokemonSpeciesId &&
+                other.pokemonId == pokemonId &&
+                other.formId == formId
     }
 
 }

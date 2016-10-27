@@ -12,11 +12,11 @@ import java.util.*
 /**
  * A [Fragment] that implements the basic stuff to handle navigation with a [BottomBar]
  */
-abstract class BaseBottomBarFragment(
+abstract class BaseBottomBarFragment<F: Fragment>(
         val layoutRes: Int? = null,
         val defaultTabPosition: Int = 0) : Fragment() {
 
-    protected abstract val mFragments: HashMap<Int, Fragment>
+    protected abstract val mFragments: HashMap<Int, F>
 
     //region Fragment lifecycle
 
@@ -81,4 +81,15 @@ abstract class BaseBottomBarFragment(
 
     //endregion
 
+    //region Inner classes
+
+    interface Callbacks<M> {
+
+        fun onDataLoaded(items: MutableList<M>)
+
+        fun showEmptyMessage()
+
+    }
+
+    //endregion
 }

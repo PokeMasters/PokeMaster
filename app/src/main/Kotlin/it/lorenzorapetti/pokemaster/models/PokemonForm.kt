@@ -1,9 +1,6 @@
 package it.lorenzorapetti.pokemaster.models
 
-import com.raizlabs.android.dbflow.annotation.Column
-import com.raizlabs.android.dbflow.annotation.ForeignKey
-import com.raizlabs.android.dbflow.annotation.Index
-import com.raizlabs.android.dbflow.annotation.Table
+import com.raizlabs.android.dbflow.annotation.*
 import it.lorenzorapetti.pokemaster.db.PokedexDatabase
 import it.lorenzorapetti.pokemaster.models.base.HasName
 
@@ -14,8 +11,16 @@ class PokemonForm() : HasName() {
     @Index
     var pokemon: Pokemon? = null
 
-    @ForeignKey
     @Index
+    @ForeignKey(references = arrayOf(
+            ForeignKeyReference(
+                    columnName = "version_group_id",
+                    columnType = Int::class,
+                    foreignKeyColumnName = "id",
+                    referencedFieldIsPrivate = true,
+                    referencedGetterName = "getId",
+                    referencedSetterName = "setId")
+    ))
     var versionGroup: VersionGroup? = null
 
     @Column(name = "form_name", length = 30)
@@ -35,5 +40,11 @@ class PokemonForm() : HasName() {
 
     @Column
     var order: Int = 0
+
+    @Column(name = "is_favorite")
+    var isFavorite: Boolean = false
+
+    @Column(name = "is_captured")
+    var isCaptured: Boolean = false
 
 }

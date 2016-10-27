@@ -26,15 +26,10 @@ fun <T: Model> find(modelClass: KClass<T>, id: Int): T? {
 
     try {
         //We get the "id" property of the table class, if it exists
-        val tableClass = Class.forName(modelClass.qualifiedName + "_Table").kotlin
-        val idProperty: IntProperty? = tableClass.staticProperties.single {
-            it.name == "id"
-        } as? IntProperty
+        val idProperty = IntProperty(modelClass.java, "id")
 
-        if (idProperty != null) {
-            //Finally we can search for the record
-            return (select from modelClass where idProperty.eq(id)).querySingle() as? T
-        }
+        //Finally we can search for the record
+        return (select from modelClass where idProperty.eq(id)).querySingle() as? T
     } catch (e: ClassNotFoundException) {
         e.printStackTrace()
     } catch (e: NoSuchElementException) {
