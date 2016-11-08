@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.support.v7.widget.RecyclerView
+import android.widget.Toast
 import com.raizlabs.android.dbflow.kotlinextensions.from
 import com.raizlabs.android.dbflow.kotlinextensions.list
 import com.raizlabs.android.dbflow.kotlinextensions.select
@@ -93,3 +94,7 @@ fun Context.findDrawable(name: String): Drawable? {
 }
 
 fun Context.findTypeDrawableResource(name: String) = findDrawableResource("ic_type_$name")
+
+fun toast(context: Context, message: String) {
+    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+}

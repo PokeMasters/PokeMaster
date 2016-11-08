@@ -144,6 +144,36 @@ class PokemonModelView : BaseModelView<PokemonSpecies>() {
         }
     }
 
+    fun deleteFromFavorites(callback: () -> Unit) {
+        val pokemonForm = find(PokemonForm::class, formId)
+
+        pokemonForm?.let {
+            doAsync {
+                pokemonForm.isFavorite = false
+                pokemonForm.update()
+                this@PokemonModelView.isFavorite = pokemonForm.isFavorite
+                uiThread {
+                    callback()
+                }
+            }
+        }
+    }
+
+    fun deleteFromCaptured(callback: () -> Unit) {
+        val pokemonForm = find(PokemonForm::class, formId)
+
+        pokemonForm?.let {
+            doAsync {
+                pokemonForm.isCaptured = false
+                pokemonForm.update()
+                this@PokemonModelView.isCaptured = pokemonForm.isCaptured
+                uiThread {
+                    callback()
+                }
+            }
+        }
+    }
+
     override fun equals(other: Any?): Boolean {
         if (other !is PokemonModelView) return false
         return other.pokemonSpeciesId == pokemonSpeciesId &&

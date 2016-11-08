@@ -11,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Light"
         android:name=".PokeMasterApplication">
-        <activity android:name=".views.MainActivity">
+        <activity android:name=".views.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

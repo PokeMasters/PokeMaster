@@ -1,8 +1,6 @@
 package it.lorenzorapetti.pokemaster.adapter.pokemon
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,16 +13,14 @@ import it.lorenzorapetti.pokemaster.R
 import it.lorenzorapetti.pokemaster.adapter.MvpViewHolder
 import it.lorenzorapetti.pokemaster.models.view.PokemonModelView
 import it.lorenzorapetti.pokemaster.presenter.PokemonPresenter
-import it.lorenzorapetti.pokemaster.utils.findPokemonString
-import it.lorenzorapetti.pokemaster.utils.findTypeDrawableResource
-import it.lorenzorapetti.pokemaster.utils.getSugimoriThumbUrl
-import it.lorenzorapetti.pokemaster.utils.viewById
+import it.lorenzorapetti.pokemaster.utils.*
 import java.util.*
 
 class PokemonPresenterAdapter(
         var context: Context,
         presenter: PokemonPresenter,
-        var layoutRes: Int = R.layout.item_pokemon_detail
+        var layoutRes: Int = R.layout.list_item_pokemon,
+        val favorite: Boolean = true
 ) : RecyclerSwipeAdapter<MvpViewHolder<PokemonModelView>>() {
 
     var mItems: MutableList<PokemonModelView> = ArrayList()
@@ -51,15 +47,16 @@ class PokemonPresenterAdapter(
 
     //endregion
 
-    class PokemonDetailViewHolder : MvpViewHolder<PokemonModelView> {
+    inner class PokemonDetailViewHolder : MvpViewHolder<PokemonModelView> {
 
         val avatar: ImageView
         val name: TextView
         val number: TextView
         val primaryType: ImageView
         val secondaryType: ImageView
-        val actionFavorites: ImageView
-        val actionCaptured: ImageView
+        val actionFavorites: ImageView?
+        val actionCaptured: ImageView?
+        val actionDelete: ImageView?
 
         constructor(itemView: View) : super(itemView) {
             avatar = viewById(R.id.list_image) as ImageView
@@ -67,8 +64,9 @@ class PokemonPresenterAdapter(
             number = viewById(R.id.list_subtitle) as TextView
             primaryType = viewById(R.id.list_primary_icon) as ImageView
             secondaryType = viewById(R.id.list_secondary_icon) as ImageView
-            actionFavorites = viewById(R.id.list_action_favorites) as ImageView
-            actionCaptured = viewById(R.id.list_action_captured) as ImageView
+            actionFavorites = viewById(R.id.list_action_favorites) as? ImageView
+            actionCaptured = viewById(R.id.list_action_captured) as? ImageView
+            actionDelete = viewById(R.id.list_action_delete) as? ImageView
         }
 
         override fun bind(item: PokemonModelView, position: Int) {
@@ -100,47 +98,69 @@ class PokemonPresenterAdapter(
                 secondaryType.visibility = View.GONE
             }
 
-            if (item.isFavorite) {
-                actionFavorites.contentDescription =
-                        itemView.context.getString(R.string.action_remove_from_favorites)
-            } else {
-                actionFavorites.contentDescription =
-                        itemView.context.getString(R.string.action_add_to_favorites)
-            }
-            actionFavorites.setOnClickListener {
-                item.toggleFavorite {
-                    val message: String
-                    if (it) {
-                        message = itemView.context.getString(
-                                R.string.message_pokemon_added_to_favorites, pokemonName)
-                    } else {
-                        message = itemView.context.getString(
-                                R.string.message_pokemon_removed_from_favorites, pokemonName)
-                    }
-                    Toast.makeText(itemView.context, message, Toast.LENGTH_SHORT).show()
-                    Log.d("App", "Favorite: ${item.isFavorite}")
+            actionFavorites?.let {
+
+                if (item.isFavorite) {
+                    actionFavorites.setImageResource(R.drawable.ic_bookmarks_white_full)
+                } else {
+                    actionFavorites.setImageResource(R.drawable.ic_bookmarks_white)
                 }
+                actionFavorites.setOnClickListener {
+                    item.toggleFavorite {
+                        val messageRes = if (it) R.string.message_pokemon_added_to_favorites
+                                        else R.string.message_pokemon_removed_from_favorites
+                        val message = itemView.context.getString(messageRes, pokemonName)
+                        toast(itemView.context, message)
+
+                        //Close side menu and notify the adapter that the item has been changed
+                        this@PokemonPresenterAdapter.closeItem(position)
+                        this@PokemonPresenterAdapter.notifyItemChanged(position)
+                    }
+                }
+
             }
 
-            if (item.isCaptured) {
-                actionCaptured.contentDescription =
-                        itemView.context.getString(R.string.action_remove_from_captured)
-            } else {
-                actionCaptured.contentDescription =
-                        itemView.context.getString(R.string.action_add_to_captured)
-            }
-            actionCaptured.setOnClickListener {
-                item.toggleCaptured {
-                    val message: String
-                    if (it) {
-                        message = itemView.context.getString(
-                                R.string.message_pokemon_added_to_captured, pokemonName)
-                    } else {
-                        message = itemView.context.getString(
-                                R.string.message_pokemon_removed_from_captured, pokemonName)
+            actionCaptured?.let {
+
+                if (item.isCaptured) {
+                    actionCaptured.setImageResource(R.drawable.ic_captured_white_full)
+                } else {
+                    actionCaptured.setImageResource(R.drawable.ic_captured_white)
+                }
+                actionCaptured.setOnClickListener {
+                    item.toggleCaptured {
+                        val messageRes = if (it) R.string.message_pokemon_added_to_captured
+                                        else R.string.message_pokemon_removed_from_captured
+                        val message = itemView.context.getString(messageRes, pokemonName)
+                        toast(itemView.context, message)
+
+                        //Close side menu and notify the adapter that the item has been changed
+                        this@PokemonPresenterAdapter.closeItem(position)
+                        this@PokemonPresenterAdapter.notifyItemChanged(position)
                     }
-                    Toast.makeText(itemView.context, message, Toast.LENGTH_SHORT).show()
-                    Log.d("App", "Captured: ${item.isCaptured}")
+                }
+
+            }
+
+            actionDelete?.setOnClickListener {
+                if (favorite) {
+                    item.deleteFromFavorites {
+                        toast(itemView.context,
+                                itemView.context.getString(
+                                        R.string.message_pokemon_removed_from_favorites, pokemonName))
+                        //Close side menu and notify the adapter that the item has been changed
+                        this@PokemonPresenterAdapter.closeItem(position)
+                        this@PokemonPresenterAdapter.notifyDataSetChanged()
+                    }
+                } else {
+                    item.deleteFromCaptured {
+                        toast(itemView.context,
+                                itemView.context.getString(
+                                        R.string.message_pokemon_removed_from_captured, pokemonName))
+                        //Close side menu and notify the adapter that the item has been changed
+                        this@PokemonPresenterAdapter.closeItem(position)
+                        this@PokemonPresenterAdapter.notifyDataSetChanged()
+                    }
                 }
             }
         }
